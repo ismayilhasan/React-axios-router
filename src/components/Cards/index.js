@@ -28,7 +28,7 @@ function Cards() {
 
     const getCommentsbyUser = (id) => {
       cardService.getUserComments(id).then(({data:comments}) => {
-        
+        history.push("/comments",id)
       })
     }
   return (
@@ -39,16 +39,16 @@ function Cards() {
      <button onClick={callUsers} className='btn btn-success w-100 mt-3'>Send Request</button>
      <h1 className=''>Click button And Show Result</h1>
       <Row>
-          {users.map((item,index) => (
+          {users.map(({id,title},index) => (
              <Col key={index} md = {4}>
              <Card className='my-3' style={{ width: '18rem' }}>
            <Card.Img variant="top" src="holder.js/100px180" />
            <Card.Body>
-             <Card.Title>{item.id}</Card.Title>
+             <Card.Title>{id}</Card.Title>
              <Card.Text>
-              {item.title}
+              {title}
              </Card.Text>
-             <Button onClick={getCommentsbyUser(item.id)} variant="primary">Go somewhere</Button>
+             <Button onClick={() => getCommentsbyUser(id)} variant="primary">Go somewhere</Button>
            </Card.Body>
          </Card>
              </Col>

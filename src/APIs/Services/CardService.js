@@ -9,7 +9,7 @@ class CardService extends HttpClient {
         return this.get('posts')
     }
     getUserComments(id) {
-        return this.get('comments',id)
+        return this.getCommentUsers('comments',id)
     }
     postNewPosts(body) {
         return this.post("posts", body);
