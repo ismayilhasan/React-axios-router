@@ -2,11 +2,11 @@ import React from 'react'
 import  './index.scss'
 import {Button,Card,Col,Container,Row} from 'react-bootstrap'
 import { cardService } from '../../APIs/Services/CardService';
-
+import {useHistory} from "react-router-dom";
 
 function Cards() {
   const [users,setUsers] = React.useState([]);
-
+  const history = useHistory()
   React.useEffect((e) => {
     // const usersFormAPI = axios.get("https://jsonplaceholder.typicode.com/posts")   //stupid version :)
     // usersFormAPI.then(({data}) => {
@@ -15,29 +15,40 @@ function Cards() {
     // })
     // getAllPosts(setUsers)   clever version :)
 
-    cardService.getAllPosts().then(({data:userData}) => {
-      setUsers(userData)
-    })
-    
+
     
   },[])
+
+    const callUsers = () => {
+      cardService.getAllPosts().then(({data:userData}) => {
+        setUsers(userData)
+        console.log(users);
+      })
+    } 
+
+    const getCommentsbyUser = (id) => {
+      cardService.getUserComments(id).then(({data:comments}) => {
+        
+      })
+    }
   return (
     <>
      
 
     <Container>
+     <button onClick={callUsers} className='btn btn-success w-100 mt-3'>Send Request</button>
+     <h1 className=''>Click button And Show Result</h1>
       <Row>
           {users.map((item,index) => (
              <Col key={index} md = {4}>
-             <Card style={{ width: '18rem' }}>
+             <Card className='my-3' style={{ width: '18rem' }}>
            <Card.Img variant="top" src="holder.js/100px180" />
            <Card.Body>
              <Card.Title>{item.id}</Card.Title>
              <Card.Text>
-               Some quick example text to build on the card title and make up the
-               bulk of the card's content.
+              {item.title}
              </Card.Text>
-             <Button variant="primary">Go somewhere</Button>
+             <Button onClick={getCommentsbyUser(item.id)} variant="primary">Go somewhere</Button>
            </Card.Body>
          </Card>
              </Col>

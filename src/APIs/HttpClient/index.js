@@ -13,6 +13,12 @@ export class HttpClient {
     {
          return await axios.get(`${this.baseUrl}/${endpoint}`)
     }
+    async getCommentUsers(endpoint,id)
+    {
+         return await axios.get(`${this.baseUrl}/${endpoint}/${id}`)
+    }
+    
+    
     async post(endpoint,body)
     {
          return await axios.post(`${this.baseUrl}/${endpoint}`,body)
